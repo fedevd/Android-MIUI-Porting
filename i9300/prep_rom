@@ -4,12 +4,13 @@
 clear;
 
 echo "***************************************";
-echo "iBotPeaches .:. Auto Porting .:. ";
+echo "datagutt .:. Auto Porting .:. ";
+echo "Based on script by iBotPeaches";
 echo "***************************************";
 
 #setup vars
 dir=$PWD;
-phone="d2att";
+phone="i9300";
 version="2.11.16";
 
 #helper vars
@@ -53,7 +54,7 @@ mkdir -p $dir/port
 
 #begin copy
 cd $dir/raw_cm;
-cp -arf * ../port;
+cp -aRf * ../port;
 
 #delete CM specific stuff
 rm -rf $dir/port/system/framework/*;
@@ -65,43 +66,43 @@ rm -rf $dir/port/system/xbin/su;
 ## BEGIN COPY OF MIUI FILES
 
 #libs
-cp -arf $miui_path/system/lib/content-types.properties $port_path/system/lib/content-types.properties;
-cp -arf $miui_path/system/lib/liblbesec.so $port_path/system/lib/liblbesec.so;
-cp -arf $miui_path/system/lib/liblocSDK_2.5OEM.so $port_path/system/lib/liblocSDK_2.5OEM.so;
-cp -arf $miui_path/system/lib/libjni_resource_drm.so $port_path/system/lib/libjni_resource_drm.so;
-cp -arf $miui_path/system/lib/libshell* $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/content-types.properties $port_path/system/lib/content-types.properties;
+cp -aRf $miui_path/system/lib/liblbesec.so $port_path/system/lib/liblbesec.so;
+cp -aRf $miui_path/system/lib/liblocSDK_2.5OEM.so $port_path/system/lib/liblocSDK_2.5OEM.so;
+cp -aRf $miui_path/system/lib/libjni_resource_drm.so $port_path/system/lib/libjni_resource_drm.so;
+cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
 
 #etc
-cp -arf $miui_path/system/etc/yellowpage.db $port_path/system/etc/yellowpage.db;
-cp -arf $miui_path/system/etc/telocation.idf $port_path/system/etc/telocation.idf;
-cp -arf $miui_path/system/etc/spn-conf.xml $port_path/system/etc/spn-conf.xml;
-cp -arf $miui_path/system/etc/unicode_py_index.td $port_path/system/etc/unicode_py_index.td;
+cp -aRf $miui_path/system/etc/yellowpage.db $port_path/system/etc/yellowpage.db;
+cp -aRf $miui_path/system/etc/telocation.idf $port_path/system/etc/telocation.idf;
+cp -aRf $miui_path/system/etc/spn-conf.xml $port_path/system/etc/spn-conf.xml;
+cp -aRf $miui_path/system/etc/unicode_py_index.td $port_path/system/etc/unicode_py_index.td;
 
 
 #etc - permissions
-cp -arf $miui_path/system/etc/permissions/com.nxp.mifare.xml $port_path/system/etc/permissions/com.nxp.mifare.xml;
-cp -arf $miui_path/system/etc/permissions/miui-framework.xml $port_path/system/etc/permissions/miui-framework.xml;
-cp -arf $miui_path/system/etc/permissions/com.google.android.media.effects.xml $port_path/system/etc/permissions/com.google.android.media.effects.xml;
-cp -arf $miui_path/system/etc/permissions/com.google.widevine.software.drm.xml $port_path/system/etc/permissions/com.google.widevine.software.drm.xml;
-cp -arf $miui_path/system/etc/permissions/com.google.android.maps.xml $port_path/system/etc/permissions/com.google.android.maps.xml;
+cp -aRf $miui_path/system/etc/permissions/com.nxp.mifare.xml $port_path/system/etc/permissions/com.nxp.mifare.xml;
+cp -aRf $miui_path/system/etc/permissions/miui-framework.xml $port_path/system/etc/permissions/miui-framework.xml;
+cp -aRf $miui_path/system/etc/permissions/com.google.android.media.effects.xml $port_path/system/etc/permissions/com.google.android.media.effects.xml;
+cp -aRf $miui_path/system/etc/permissions/com.google.widevine.software.drm.xml $port_path/system/etc/permissions/com.google.widevine.software.drm.xml;
+cp -aRf $miui_path/system/etc/permissions/com.google.android.maps.xml $port_path/system/etc/permissions/com.google.android.maps.xml;
 
 #xbin
-cp -arf $miui_path/system/xbin/su $port_path/system/xbin/su;
-cp -arf $miui_path/system/xbin/invoke-as $port_path/system/xbin/invoke-as;
-cp -arf $miui_path/system/xbin/shelld $port_path/system/xbin/shelld;
+cp -aRf $miui_path/system/xbin/su $port_path/system/xbin/su;
+cp -aRf $miui_path/system/xbin/invoke-as $port_path/system/xbin/invoke-as;
+cp -aRf $miui_path/system/xbin/shelld $port_path/system/xbin/shelld;
 
 #bin
-cp -arf $miui_path/system/bin/installd $port_path/system/bin/installd;
+cp -aRf $miui_path/system/bin/installd $port_path/system/bin/installd;
 
 # the rest of MIUI
-cp -arf $miui_path/system/app/* $port_path/system/app/;
-cp -arf $miui_path/system/framework/* $port_path/system/framework/;
-cp -arf $miui_path/system/fonts/* $port_path/system/fonts/;
-cp -arf $miui_path/system/media/* $port_path/system/media/;
+cp -aRf $miui_path/system/app/* $port_path/system/app/;
+cp -aRf $miui_path/system/framework/* $port_path/system/framework/;
+cp -aRf $miui_path/system/fonts/* $port_path/system/fonts/;
+cp -aRf $miui_path/system/media/* $port_path/system/media/;
 
 # Grab CM10 NFC && Gallery to fix Camera
-cp -arf $cm_path/system/app/Nfc.apk $port_path/system/app/;
-cp -arf $cm_path/system/app/Gallery2.apk $port_path/system/app/LegacyCMGallery.apk;
+cp -aRf $cm_path/system/app/Nfc.apk $port_path/system/app/;
+cp -aRf $cm_path/system/app/Gallery2.apk $port_path/system/app/LegacyCMGallery.apk;
 
 #kill off old MIUI Camera
 rm -rf $port_path/system/app/LegacyCamera.apk;
@@ -109,7 +110,7 @@ rm -rf $port_path/system/app/LegacyCamera.apk;
 ## Use prebuilt updater.script & build.prop
 ## Saves about 200 lines of bash. (Those reserved for MIUI Build Scripts)
 ## Copy everything that is pre-made
-cp -arf $dir/move_over/* $port_path/;
+cp -aRf $dir/move_over/* $port_path/;
 
 ## BEGIN DECOMPILE
 mkdir -p $dir/wip/jars/miui;
@@ -142,32 +143,32 @@ wip_cm=$dir/wip/jars/cm;
 wip_miui=$dir/wip/jars/miui;
 
 #auto merge framework
-cp -arf $wip_cm/framework.jar.out/smali/android/view/GLES20*.smali $wip_miui/framework.jar.out/smali/android/view/;
-cp -arf $wip_cm/framework.jar.out/smali/android/view/HardwareCanvas.smali $wip_miui/framework.jar.out/smali/android/view/;
-cp -arf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
-cp -arf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
-cp -arf $wip_cm/framework.jar.out/smali/android/server/BluetoothA2dpService*.smali $wip_miui/framework.jar.out/smali/android/server/;
-cp -arf $wip_cm/framework.jar.out/smali/android/webkit/WebView*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -arf $wip_cm/framework.jar.out/smali/android/webkit/WebSettings*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -arf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -arf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -arf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
-cp -arf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
-cp -arf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
-cp -arf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/Samsung*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
-cp -arf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/QualcommSharedRIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
-cp -arf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMap*.smali $wip_miui/framework.jar.out/smali/android/content/res/;
-cp -arf $wip_cm/framework.jar.out/smali/android/app/ProfileManager*.smali $wip_miui/framework.jar.out/smali/android/app/;
-cp -arf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miui/framework.jar.out/smali/android/media/;
-cp -arf $wip_cm/framework.jar.out/smali/android/media/AudioManager\$1.smali $wip_miui/framework.jar.out/smali/android/media/;
-cp -arf $wip_cm/framework.jar.out/smali/android/media/AudioManager\$2.smali $wip_miui/framework.jar.out/smali/android/media/;
-cp -arf $wip_cm/framework.jar.out/smali/android/media/MediaRecorder*.smali $wip_miui/framework.jar.out/smali/android/media/;
-cp -arf $wip_cm/framework.jar.out/smali/android/app/ProfileGroup*.smali $wip_miui/framework.jar.out/smali/android/app/;
-cp -arf $wip_cm/framework.jar.out/smali/android/os/IPowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
-cp -arf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/view/GLES20*.smali $wip_miui/framework.jar.out/smali/android/view/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/view/HardwareCanvas.smali $wip_miui/framework.jar.out/smali/android/view/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/server/BluetoothA2dpService*.smali $wip_miui/framework.jar.out/smali/android/server/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettings*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/Samsung*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/QualcommSharedRIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMap*.smali $wip_miui/framework.jar.out/smali/android/content/res/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/app/ProfileManager*.smali $wip_miui/framework.jar.out/smali/android/app/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miui/framework.jar.out/smali/android/media/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioManager\$1.smali $wip_miui/framework.jar.out/smali/android/media/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioManager\$2.smali $wip_miui/framework.jar.out/smali/android/media/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/media/MediaRecorder*.smali $wip_miui/framework.jar.out/smali/android/media/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/app/ProfileGroup*.smali $wip_miui/framework.jar.out/smali/android/app/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/os/IPowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
 
 #move over merges for apk
-cp -arf $dir/random_apk_fixes/* $dir/wip/apks/;
+cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
 echo "Auto merge complete. Time for manual merges :/";
 
 #manual diff
