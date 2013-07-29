@@ -148,8 +148,10 @@ wip_miui=$dir/wip/jars/miui;
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$\SendScrollToWebCore.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
@@ -180,6 +182,10 @@ $diffmerge $wip_cm/services.jar.out/smali/com/android/server/power/PowerManagerS
 echo "Patch WebSettingsClassic"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali $wip_miui/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali;
+
+echo "Patch WebViewCore"
+sleep 4;
+$diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore.smali $wip_miui/framework.jar.out/smali/android/webkit/WebViewCore.smali;
 
 echo "Patch WebViewClassic"
 sleep 4;
