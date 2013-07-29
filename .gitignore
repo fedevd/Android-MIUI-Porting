@@ -1,13 +1,9 @@
 *~
 
-d2att/COMPLETED_ZIPS/*
-d2att/raw_cm/*
-d2att/raw_miui/*
-d2att/wip/*
-d2att/port/*
+i9300/COMPLETED_ZIPS/*
+i9300/raw_cm/*
+i9300/raw_miui/*
+i9300/wip/*
+i9300/port/*
 
-d2tmo/COMPLETED_ZIPS/*
-d2tmo/raw_cm/*
-d2tmo/raw_miui/*
-d2tmo/wip/*
-d2tmo/port/*
+.DS_Store
