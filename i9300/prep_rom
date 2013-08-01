@@ -81,9 +81,9 @@ cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher
 cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
 cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
 # Grab CM10 NFC libs
-cp -aRf $cm_path/system/lib/libnfc.so $port_path/system/app/;
-cp -aRf $cm_path/system/lib/libnfc_jni.so $port_path/system/app/;
-cp -aRf $cm_path/system/lib/libnfc_ndef.so $port_path/system/app/;
+cp -aRf $cm_path/system/lib/libnfc.so $port_path/system/lib/;
+cp -aRf $cm_path/system/lib/libnfc_jni.so $port_path/system/lib/;
+cp -aRf $cm_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
 
 #etc
 cp -aRf $miui_path/system/etc/yellowpage.db $port_path/system/etc/yellowpage.db;
@@ -147,7 +147,7 @@ wip_miui=$dir/wip/jars/miui;
 #auto merge framework
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 #cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 #cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 #cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$\SendScrollToWebCore.smali $wip_miui/framework.jar.out/smali/android/webkit/;
