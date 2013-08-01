@@ -147,11 +147,9 @@ wip_miui=$dir/wip/jars/miui;
 #auto merge framework
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
-#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebView*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 #cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 #cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$\SendScrollToWebCore.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
@@ -184,9 +182,9 @@ echo "Patch WebSettingsClassic"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali $wip_miui/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali;
 
-echo "Patch nativeSelectText"
-sleep 4;
-$diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore.smali $wip_miui/framework.jar.out/smali/android/webkit/WebViewCore.smali;
+#echo "Patch nativeSelectText"
+#sleep 4;
+#$diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore.smali $wip_miui/framework.jar.out/smali/android/webkit/WebViewCore.smali;
 
 #mod some apks
 echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>, and disable showNavigationBar';
