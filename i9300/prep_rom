@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="i9300";
-version="3.7.26";
+version="3.8.2";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -84,6 +84,10 @@ cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc.so $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc_jni.so $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
+# Fix external sdcard support
+cp -aRf $miui_path/system/lib/libdrmframework_jni.so $port_path/system/lib/libdrmframework_jni.so;
+cp -aRf $miui_path/system/lib/libmedia_jni.so $port_path/system/lib/libmedia_jni.so;
+cp -aRf $miui_path/system/lib/libmtp.so $port_path/system/lib/libmtp.so;
 
 #etc
 cp -aRf $miui_path/system/etc/yellowpage.db $port_path/system/etc/yellowpage.db;
@@ -135,7 +139,7 @@ $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-comm
 
 #decompile APKs that need editing.
 $dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk
-$dir/../tools/apktool d --no-src $port_path/system/app/Settings.apk $dir/wip/apks/Settings.apk
+$dir/../tools/apktool d --no-src $port_path/system/app/MiuiSystemUI.apk $dir/wip/apks/MiuiSystemUI.apk
 
 #lets merge smali that is just direct merge
 # USING MIUI FOLDER AS LIVE
@@ -147,12 +151,20 @@ wip_miui=$dir/wip/jars/miui;
 #auto merge framework
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$\SendScrollToWebCore.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+
+if [ -d $dir/fixed_webkit ]; then
+	echo "Copying webkit tree from fixed_webkit dir";
+	rm -rf $wip_miui/framework.jar.out/smali/android/webkit/*
+	cp -aRf $dir/fixed_webkit/* $wip_miui/framework.jar.out/smali/android/webkit/;
+else
+	echo "Manually fixing webkit";
+	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+	#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+	#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$\SendScrollToWebCore.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+fi
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/;
@@ -162,8 +174,10 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/net/wifi/WifiNative.smali $wip_m
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/IPowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/SystemProperties.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/view/inputmethod/InputMethodInfo*.smali $wip_miui/framework.jar.out/smali/android/view/inputmethod/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/opengl/Gles20*.smali $wip_miui/framework.jar.out/smali/android/opengl/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miui/framework.jar.out/smali/android/media/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.out/smali/android/nfc/;
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
 
 #move over merges for apk
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
@@ -194,7 +208,7 @@ nano $dir/wip/apks/framework-res.apk/res/values/bools.xml
 echo "Everything is done :) Rebuilding now....";
 
 ##START THE REBUILD - apks
-$dir/../tools/apktool b $dir/wip/apks/Settings.apk
+$dir/../tools/apktool b $dir/wip/apks/MiuiSystemUI.apk
 $dir/../tools/apktool b $dir/wip/apks/framework-res.apk
 $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/framework.jar.out
@@ -206,7 +220,7 @@ $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
 7za u -mx0 -tzip $dir/port/system/framework/telephony-common.jar $dir/wip/jars/miui/telephony-common.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/services.jar $dir/wip/jars/miui/services.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework.jar $dir/wip/jars/miui/framework.jar.out/build/apk/classes.dex > /dev/null;
-7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
+7za u -mx0 -tzip $dir/port/system/app/MiuiSystemUI.apk $dir/wip/apks/MiuiSystemUI.apk/build/apk/resources.arsc > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/resources.arsc > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
