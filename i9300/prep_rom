@@ -77,6 +77,7 @@ cp -aRf $miui_path/system/lib/liblbesec.so $port_path/system/lib/liblbesec.so;
 cp -aRf $miui_path/system/lib/liblocSDK_2_5OEM.so $port_path/system/lib/liblocSDK_2_5OEM.so;
 cp -aRf $miui_path/system/lib/libjni_resource_drm.so $port_path/system/lib/libjni_resource_drm.so;
 cp -aRf $miui_path/system/lib/libmp3lame.so $port_path/system/lib/libmp3lame.so;
+cp -aRf $miui_path/system/lib/libjni_resource_patcher.so $port_path/system/lib/libjni_resource_patcher.so;
 cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher_jni.so;
 cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
 cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
