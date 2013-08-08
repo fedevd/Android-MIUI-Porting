@@ -81,7 +81,7 @@ cp -aRf $miui_path/system/lib/libjni_resource_patcher.so $port_path/system/lib/l
 cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher_jni.so;
 cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
 cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
-# Grab CM10 NFC libs
+# Grab CM10 NFC stuff
 cp -aRf $cm_path/system/lib/libnfc.so $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc_jni.so $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
@@ -129,18 +129,18 @@ for file in $port_path/system/framework/*.apk; do
 done
 
 # decompile jars that need smali editing
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar $dir/wip/jars/miui/services.jar.out
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/framework.jar $dir/wip/jars/miui/framework.jar.out
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar $dir/wip/jars/miui/android.policy.jar.out
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/telephony-common.jar $dir/wip/jars/miui/telephony-common.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/services.jar $dir/wip/jars/cm/services.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/framework.jar $dir/wip/jars/cm/framework.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar $dir/wip/jars/cm/android.policy.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar $dir/wip/jars/cm/telephony-common.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar -o $dir/wip/jars/miui/services.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/framework.jar -o$dir/wip/jars/miui/framework.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar -o $dir/wip/jars/miui/android.policy.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/telephony-common.jar -o $dir/wip/jars/miui/telephony-common.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/services.jar -o $dir/wip/jars/cm/services.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/framework.jar -o $dir/wip/jars/cm/framework.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar  -o $dir/wip/jars/cm/android.policy.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar  -o $dir/wip/jars/cm/telephony-common.jar.out
 
 #decompile APKs that need editing.
-$dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk
-$dir/../tools/apktool d --no-src $port_path/system/app/MiuiSystemUI.apk $dir/wip/apks/MiuiSystemUI.apk
+$dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk -o $dir/wip/apks/framework-res.apk
+$dir/../tools/apktool d --no-src $port_path/system/app/MiuiSystemUI.apk -o $dir/wip/apks/MiuiSystemUI.apk
 
 #lets merge smali that is just direct merge
 # USING MIUI FOLDER AS LIVE
@@ -167,10 +167,7 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui
 	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 #fi
 
-cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
-cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
-cp -aRf $wip_cm/framework.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
-cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/Samsung*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMap*.smali $wip_miui/framework.jar.out/smali/android/content/res/
 
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
@@ -186,6 +183,8 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miu
 cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.out/smali/android/nfc/;
 cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
 
+cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
+
 #move over merges for apk
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
 echo "Auto merge complete. Time for manual merges :/";
@@ -199,9 +198,22 @@ echo "Merge nativeCpuBoost"
 sleep 4;
 $diffmerge $wip_cm/services.jar.out/smali/com/android/server/power/PowerManagerService.smali $wip_miui/services.jar.out/smali/com/android/server/power/PowerManagerService.smali;
 
+echo "Patch AssetManager"
+sleep 4;
+$diffmerge $wip_cm/framework.jar.out/smali/android/content/res/AssetManager.smali $wip_miui/framework.jar.out/smali/android/content/res/AssetManager.smali;
+
+
 echo "Patch WebSettingsClassic"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali $wip_miui/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali;
+
+echo "Patch FileUtils"
+sleep 4;
+$diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
+
+#echo "Patch native_agps_set_ref_location_cellid"
+#sleep 4;
+#$diffmerge $wip_cm/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali $wip_miui/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali
 
 #echo "Patch nativeSelectText"
 #sleep 4;
