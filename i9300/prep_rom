@@ -185,6 +185,8 @@ cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger
 
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
 
+cp -aRf $wip_cm/services.jar.out/smali/com/android/server/MountService*.smali $wip_miui/services.jar.out/smali/com/android/server/;
+
 #move over merges for apk
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
 echo "Auto merge complete. Time for manual merges :/";
