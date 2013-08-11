@@ -85,8 +85,7 @@ cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc.so $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc_jni.so $port_path/system/lib/;
 cp -aRf $cm_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
-cp -aRf $cm_path/system/framework/com.android.nfc_extras.jar $port_path/system/framework/;
-cp -aRf $cm_path/system/app/Nfc.apk $port_path/system/app/;
+#cp -aRf $cm_path/system/framework/com.android.nfc_extras.jar $port_path/system/framework/;
 # Fix external sdcard support
 cp -aRf $miui_path/system/lib/libdrmframework_jni.so $port_path/system/lib/libdrmframework_jni.so;
 cp -aRf $miui_path/system/lib/libmedia_jni.so $port_path/system/lib/libmedia_jni.so;
@@ -103,6 +102,8 @@ cp -aRf $miui_path/system/etc/spn-conf.xml $port_path/system/etc/spn-conf.xml;
 cp -aRf $miui_path/system/etc/permissions/com.nxp.mifare.xml $port_path/system/etc/permissions/com.nxp.mifare.xml;
 cp -aRf $miui_path/system/etc/permissions/com.google.android.maps.xml $port_path/system/etc/permissions/com.google.android.maps.xml;
 
+#bin
+cp -aRf $miui_path/system/bin/iptables $port_path/system/bin/iptables;
 #xbin
 cp -aRf $miui_path/system/xbin/su $port_path/system/xbin/su;
 cp -aRf $miui_path/system/xbin/shelld $port_path/system/xbin/shelld;
@@ -111,6 +112,7 @@ cp -aRf $miui_path/system/app/* $port_path/system/app/;
 cp -aRf $miui_path/system/framework/* $port_path/system/framework/;
 cp -aRf $miui_path/system/fonts/* $port_path/system/fonts/;
 cp -aRf $miui_path/system/media/* $port_path/system/media/;
+rm $port_path/system/app/Nfc.apk;
 # Replace LatinIME, because it will fc with the MIUI one
 rm $port_path/system/app/LatinIme*.apk;
 cp $cm_path/system/app/LatinIME.apk $port_path/system/app/;
@@ -192,6 +194,13 @@ cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger
 
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
 
+sed '$i \
+<string name="performance_settings">false</string>' $dir/wip/apks/Settings.apk/res/values/ids.xml > out.tmp && mv out.tmp $dir/wip/apks/Settings.apk/res/values/ids.xml
+sed '$i \
+<string name="advanced_settings">false</string>
+' $dir/wip/apks/Settings.apk/res/values/ids.xml > out.tmp && mv out.tmp $dir/wip/apks/Settings.apk/res/values/ids.xml
+
+
 #move over merges for apk
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
 echo "Auto merge complete. Time for manual merges :/";
@@ -217,8 +226,6 @@ $diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.sma
 echo "Patch FileUtils"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
-
-#$diffmerge $wip_cm/services.jar.out/smali/com/android/server/MountService.smali $wip_miui/services.jar.out/smali/com/android/server/MountService.smali;
 
 #echo "Patch native_agps_set_ref_location_cellid"
 #sleep 4;
