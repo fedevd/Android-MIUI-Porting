@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="i9300";
-version="3.8.9";
+version="3.8.16";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -81,11 +81,10 @@ cp -aRf $miui_path/system/lib/libjni_resource_patcher.so $port_path/system/lib/l
 cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher_jni.so;
 cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
 cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
-# Grab CM10 NFC stuff
-cp -aRf $cm_path/system/lib/libnfc.so $port_path/system/lib/;
-cp -aRf $cm_path/system/lib/libnfc_jni.so $port_path/system/lib/;
-cp -aRf $cm_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
-#cp -aRf $cm_path/system/framework/com.android.nfc_extras.jar $port_path/system/framework/;
+# Grab MIUI NFC stuff
+cp -aRf $miui_path/system/lib/libnfc.so $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/libnfc_jni.so $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
 # Fix external sdcard support
 cp -aRf $miui_path/system/lib/libdrmframework_jni.so $port_path/system/lib/libdrmframework_jni.so;
 cp -aRf $miui_path/system/lib/libmedia_jni.so $port_path/system/lib/libmedia_jni.so;
@@ -112,7 +111,6 @@ cp -aRf $miui_path/system/app/* $port_path/system/app/;
 cp -aRf $miui_path/system/framework/* $port_path/system/framework/;
 cp -aRf $miui_path/system/fonts/* $port_path/system/fonts/;
 cp -aRf $miui_path/system/media/* $port_path/system/media/;
-rm $port_path/system/app/Nfc.apk;
 # Replace LatinIME, because it will fc with the MIUI one
 rm $port_path/system/app/LatinIme*.apk;
 cp $cm_path/system/app/LatinIME.apk $port_path/system/app/;
@@ -134,16 +132,17 @@ done
 
 # decompile jars that need smali editing
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar -o $dir/wip/jars/miui/services.jar.out
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/framework.jar -o$dir/wip/jars/miui/framework.jar.out
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar -o $dir/wip/jars/miui/android.policy.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/framework.jar -o $dir/wip/jars/miui/framework.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar  -o $dir/wip/jars/miui/android.policy.jar.out
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/telephony-common.jar -o $dir/wip/jars/miui/telephony-common.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/services.jar -o $dir/wip/jars/cm/services.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/framework.jar -o $dir/wip/jars/cm/framework.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar  -o $dir/wip/jars/cm/android.policy.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar  -o $dir/wip/jars/cm/telephony-common.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar -o  $dir/wip/jars/cm/android.policy.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar   -o $dir/wip/jars/cm/telephony-common.jar.out
 
 #decompile APKs that need editing.
 $dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk -o $dir/wip/apks/framework-res.apk
+$dir/../tools/apktool d --no-src $port_path/system/app/DeviceSettings.apk -o $dir/wip/apks/DeviceSettings.apk
 $dir/../tools/apktool d --no-src $port_path/system/app/Settings.apk -o $dir/wip/apks/Settings.apk
 
 #lets merge smali that is just direct merge
@@ -157,19 +156,11 @@ wip_miui=$dir/wip/jars/miui;
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
 
-#if [ -d $dir/fixed_webkit ]; then
-#	echo "Copying webkit tree from fixed_webkit dir";
-#	rm -rf $wip_miui/framework.jar.out/smali/android/webkit/*
-#	cp -aRf $dir/fixed_webkit/* $wip_miui/framework.jar.out/smali/android/webkit/;
-#else
-	echo "Manually fixing webkit";
-	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-	#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-	#cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewClassic$\SendScrollToWebCore.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-	cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-#fi
+echo "Manually fixing webkit";
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
+cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
 
 cp -aRf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMap*.smali $wip_miui/framework.jar.out/smali/android/content/res/
 
@@ -194,15 +185,66 @@ cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger
 
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
 
-sed '$i \
-<string name="performance_settings">false</string>' $dir/wip/apks/Settings.apk/res/values/ids.xml > out.tmp && mv out.tmp $dir/wip/apks/Settings.apk/res/values/ids.xml
-sed '$i \
-<string name="advanced_settings">false</string>
-' $dir/wip/apks/Settings.apk/res/values/ids.xml > out.tmp && mv out.tmp $dir/wip/apks/Settings.apk/res/values/ids.xml
+# 3-way reboot, thanks to iBotPeaches for the basics, but i had to modify it
+sed -i '' s/MiuiGlobalActions\$3/MiuiGlobalActions\$222/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
+sed -i '' s/MiuiGlobalActions\$4/MiuiGlobalActions\$222/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
+
+sed -i '' s/".method private showTimeoutDialog()V"/".method private showTimeoutDialog2()V"/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/LockPatternKeyguardView.smali;
+
+sed -i '' '/# instance fields/i \
+# static fields\
+.field protected static rebootMode:I\
+\
+.field protected static final rebootOptions:[Ljava/lang/String;\
+' $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions\$SinglePressAction.smali;
+
+sed -i '' '/.method protected constructor <init>(II)V/i\
+.method static constructor <clinit>()V\
+    .registers 3\
+\
+    const/4 v0, 0x3\
+\
+    new-array v0, v0, [Ljava/lang/String;\
+\
+    const/4 v1, 0x0\
+\
+    const-string v2, "Normal"\
+\
+    aput-object v2, v0, v1\
+\
+    const/4 v1, 0x1\
+\
+    const-string v2, "Recovery"\
+\
+    aput-object v2, v0, v1\
+\
+    const/4 v1, 0x2\
+\
+    const-string v2, "Bootloader"\
+\
+    aput-object v2, v0, v1\
+\
+    sput-object v0, Lcom/android/internal/policy/impl/MiuiGlobalActions$SinglePressAction;->rebootOptions:[Ljava/lang/String;\
+\
+    return-void \
+.end method\
+' $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions\$SinglePressAction.smali;
+
+sed -i '' '/.method static synthetic access\$100(Lcom\/android\/internal\/policy\/impl\/MiuiGlobalActions;)Landroid\/os\/Handler;/i\
+.method static synthetic access\$100(Lcom/android/internal/policy/impl/MiuiGlobalActions;)Landroid/content/Context;\
+	.locals 1\
+\
+	iget-object v0, p0, Lcom/android/internal/policy/impl/MiuiGlobalActions;->mContext:Landroid/content/Context;\
+\
+	return-object v0\
+.end method\
+' $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
 
 
-#move over merges for apk
+#move over merges for apk and smali
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
+cp -aRf $dir/random_smali_fixes/android.policy.jar.out/* $wip_miui/android.policy.jar.out/;
+
 echo "Auto merge complete. Time for manual merges :/";
 
 #manual diff
@@ -256,9 +298,9 @@ $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
 7za u -mx0 -tzip $dir/port/system/framework/services.jar $dir/wip/jars/miui/services.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework.jar $dir/wip/jars/miui/framework.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
+7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/resources.arsc > /dev/null;
-7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
 
 #Lets zipalign these bastards.
 for file in $dir/port/system/app/*.apk; do
@@ -269,7 +311,7 @@ done;
 for file in $dir/port/system/app/*.apk; do
    rm -rf $file;
    mv $file.zipalligned $file;
-done
+done;
 
 # Zip this guy
 cd $dir/port/;
