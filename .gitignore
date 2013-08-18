@@ -8,3 +8,4 @@ i9300/port/*
 
 .DS_Store
 *.pyc
+*.hup

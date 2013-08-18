@@ -346,6 +346,29 @@ for file in $dir/port/system/app/*.apk; do
 		fi
 	fi
 done;
+for file in $dir/port/system/framework/*.apk; do
+	file2=`basename $file`;
+	APKINFO=`grep "name=\"$file2\"" $APKCERTS`;
+	if [ "$APKINFO" = "" ];
+		then
+		    echo "No apk info for $file";
+		fi
+	CERT=`echo $APKINFO | awk {'print $2'} | cut -f 2 -d "=" | tr -d "\""`;
+	KEY=`echo $APKINFO | awk {'print $3'} | cut -f 2 -d "=" | tr -d "\""`;
+	if [ "$CERT" = "" ];
+	then
+	    echo "Unable to find certificate for $file"
+	else
+		if [ "$CERT" != "PRESIGNED" ];
+		then
+			if [ -f "$file" ];
+			then
+				java -jar $dir/../tools/signapk.jar $dir/$CERT $dir/$KEY $file $file.signed;
+				mv $file.signed $file;
+			fi
+		fi
+	fi
+done;
 
 # Zip this guy
 cd $dir/port/;
