@@ -7,3 +7,4 @@ i9300/wip/*
 i9300/port/*
 
 .DS_Store
+*.pyc

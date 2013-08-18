@@ -18,6 +18,8 @@ miui_path="$dir/raw_miui";
 cm_path="$dir/raw_cm";
 port_path="$dir/port";
 diffmerge="/Applications/DiffMerge.app/Contents/MacOS/DiffMerge";
+SIGN_TARGET_FILES_APKS="$dir/../tools/releasetools/sign_target_files_apks";
+APKCERTS="$dir/../tools/apkcerts.txt";
 
 #cleanup
 if [ -d $dir/wip ]; then
@@ -315,6 +317,36 @@ for file in $dir/port/system/app/*.apk; do
    mv $file.zipalligned $file;
 done;
 
+echo "Signing with correct keys";
+
+# If you run this, you must add DeviceSettings cert into the flie afterwards
+#dir=$dir $dir/../tools/build_apkcerts.sh
+
+# I am not proud of this hack
+for file in $dir/port/system/app/*.apk; do
+	file2=`basename $file`;
+	APKINFO=`grep "name=\"$file2\"" $APKCERTS`;
+	if [ "$APKINFO" = "" ];
+		then
+		    echo "No apk info for $file";
+		fi
+	CERT=`echo $APKINFO | awk {'print $2'} | cut -f 2 -d "=" | tr -d "\""`;
+	KEY=`echo $APKINFO | awk {'print $3'} | cut -f 2 -d "=" | tr -d "\""`;
+	if [ "$CERT" = "" ];
+	then
+	    echo "Unable to find certificate for $file"
+	else
+		if [ "$CERT" != "PRESIGNED" ];
+		then
+			if [ -f "$file" ];
+			then
+				java -jar $dir/../tools/signapk.jar $dir/$CERT $dir/$KEY $file $file.signed;
+				mv $file.signed $file;
+			fi
+		fi
+	fi
+done;
+
 # Zip this guy
 cd $dir/port/;
 rm -rf $dir/COMPLETED_ZIPS/miui_un*.zip;
@@ -327,7 +359,7 @@ if [ -f $dir/COMPLETED_ZIPS/miuiandroid_$phone-$version.zip ]; then
 fi
 
 #Sign the zip.
-java -Xmx2048m -jar $dir/../tools/signapk.jar -w $dir/../tools/testkey.x509.pem $dir/../tools/testkey.pk8 $dir/COMPLETED_ZIPS/miui_unsigned.zip $dir/COMPLETED_ZIPS/miuiandroid_$phone-$version.zip;
+java -Xmx2048m -jar $dir/../tools/signapk.jar -w $dir/../tools/security/testkey.x509.pem $dir/../tools/security/testkey.pk8 $dir/COMPLETED_ZIPS/miui_unsigned.zip $dir/COMPLETED_ZIPS/miuiandroid_$phone-$version.zip;
 
 #cleanup
 rm -rf $dir/COMPLETED_ZIPS/miui_un*.zip;
