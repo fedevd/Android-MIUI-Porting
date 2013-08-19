@@ -189,7 +189,6 @@ cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerServ
 
 # 3-way reboot, thanks to iBotPeaches for the basics, but i had to modify it
 sed -i '' s/MiuiGlobalActions\$3/MiuiGlobalActions\$222/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
-sed -i '' s/MiuiGlobalActions\$4/MiuiGlobalActions\$222/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
 
 sed -i '' s/".method private showTimeoutDialog()V"/".method private showTimeoutDialog2()V"/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/LockPatternKeyguardView.smali;
 
