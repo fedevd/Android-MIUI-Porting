@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="i9300";
-version="3.8.16";
+version="3.8.23";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -186,6 +186,7 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.ou
 cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
 
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
+cp -aRf $wip_cm/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali $wip_miui/services.jar.out/smali/com/android/server/location/
 
 # 3-way reboot, thanks to iBotPeaches for the basics, but i had to modify it
 sed -i '' s/MiuiGlobalActions\$3/MiuiGlobalActions\$222/g $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
@@ -274,14 +275,6 @@ $diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.sma
 echo "Patch FileUtils"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
-
-#echo "Patch native_agps_set_ref_location_cellid"
-#sleep 4;
-#$diffmerge $wip_cm/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali $wip_miui/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali
-
-#echo "Patch nativeSelectText"
-#sleep 4;
-#$diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore.smali $wip_miui/framework.jar.out/smali/android/webkit/WebViewCore.smali;
 
 #mod some apks
 echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>, and disable showNavigationBar';
