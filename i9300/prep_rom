@@ -283,7 +283,7 @@ echo "Everything is done :) Rebuilding now....";
 
 ##START THE REBUILD - apks
 $dir/../tools/apktool b $dir/wip/apks/Settings.apk
-$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
+#$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool b $dir/wip/apks/framework-res.apk
 $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/framework.jar.out
@@ -298,7 +298,7 @@ $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
-7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
+#7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/resources.arsc > /dev/null;
 
