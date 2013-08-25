@@ -248,7 +248,7 @@ sed -i '' 's/MenuInflater;)V/MenuInflater;)V \
 
 #remove double autostart and permissions manager from the desktop
 cp $dir/wip/apks/LBESEC_MIUI.apk/AndroidManifest.xml $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml
-sed -i '' 's/<category android:name="android.intent.category.LAUNCHER" />/<!--category android:name="android.intent.category.LAUNCHER" /-->/' $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml;
+sed -i '' 's/<category android:name="android.intent.category.LAUNCHER" \/>/<!--category android:name="android.intent.category.LAUNCHER" \/-->/' $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml;
 
 #move over merges for apk and smali
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
