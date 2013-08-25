@@ -3,7 +3,7 @@ name="MediaProvider.apk" certificate="../tools/security/media.x509.pem" private_
 name="DrmProvider.apk" certificate="../tools/security/media.x509.pem" private_key="../tools/security/media.pk8"
 name="DownloadProvider.apk" certificate="../tools/security/media.x509.pem" private_key="../tools/security/media.pk8"
 name="ConfigUpdater.apk" certificate="PRESIGNED" private_key=""
-name="LBESEC_MIUI.apk" certificate="PRESIGNED" private_key=""
+name="LBESEC_MIUI.apk" certificate="../tools/security/testkey.x509.pem" private_key="../tools/security/testkey.pk8"
 name="Mms.apk" certificate="PRESIGNED" private_key=""
 name="Gallery2.apk" certificate="PRESIGNED" private_key=""
 name="LatinIME.apk" certificate="PRESIGNED" private_key=""

@@ -246,6 +246,10 @@ sed -i '' '/.method static synthetic access\$100(Lcom\/android\/internal\/policy
 sed -i '' 's/MenuInflater;)V/MenuInflater;)V \
     return-void/' $dir/wip/apks/Settings.apk/smali/com/android/settings/MiuiDeviceInfoSettings.smali;
 
+#remove double autostart and permissions manager from the desktop
+cp $dir/wip/apks/LBESEC_MIUI.apk/AndroidManifest.xml $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml
+sed -i '' 's/<category android:name="android.intent.category.LAUNCHER" />/<!--category android:name="android.intent.category.LAUNCHER" /-->/' $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml;
+
 #move over merges for apk and smali
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
 cp -aRf $dir/random_smali_fixes/android.policy.jar.out/* $wip_miui/android.policy.jar.out/;
@@ -283,7 +287,7 @@ echo "Everything is done :) Rebuilding now....";
 
 ##START THE REBUILD - apks
 $dir/../tools/apktool b $dir/wip/apks/Settings.apk
-#$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
+$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool b $dir/wip/apks/framework-res.apk
 $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/framework.jar.out
@@ -298,7 +302,7 @@ $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
-#7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
+7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/resources.arsc > /dev/null;
 
