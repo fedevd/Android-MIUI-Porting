@@ -74,6 +74,7 @@ cp -aRf $miui_path/system/lib/libFreqFilter.so $port_path/system/lib/libFreqFilt
 cp -aRf $miui_path/system/lib/libaudiofp.so $port_path/system/lib/libaudiofp.so;
 cp -aRf $miui_path/system/lib/libffmpeg_xm.so $port_path/system/lib/libffmpeg_xm.so;
 cp -aRf $miui_path/system/lib/libffplayer_jni.so $port_path/system/lib/libffplayer_jni.so;
+cp -aRf $miui_path/system/lib/libimageprocessor_jni.so $port_path/system/lib/libimageprocessor_jni.so;
 cp -aRf $miui_path/system/lib/libimageutilities_jni.so $port_path/system/lib/libimageutilities_jni.so;
 cp -aRf $miui_path/system/lib/liblbesec.so $port_path/system/lib/liblbesec.so;
 cp -aRf $miui_path/system/lib/liblocSDK_2_5OEM.so $port_path/system/lib/liblocSDK_2_5OEM.so;
