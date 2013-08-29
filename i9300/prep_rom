@@ -83,6 +83,7 @@ cp -aRf $miui_path/system/lib/libjni_resource_patcher.so $port_path/system/lib/l
 cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher_jni.so;
 cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
 cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/libMiuiGalleryJNI.so $port_path/system/lib/;
 # Grab MIUI NFC stuff
 cp -aRf $miui_path/system/lib/libnfc.so $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libnfc_jni.so $port_path/system/lib/;
