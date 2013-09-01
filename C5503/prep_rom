@@ -171,7 +171,7 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMa
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/;
-cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/Samsung*.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/;
+cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/Qualcomm*.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/;
 
 cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
 
@@ -281,7 +281,7 @@ sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
 
 #mod some apks
-echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>, and disable showNavigationBar';
+echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>';
 sleep 5;
 nano $dir/wip/apks/framework-res.apk/res/values/bools.xml
 
