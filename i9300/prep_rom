@@ -19,7 +19,7 @@ cm_path="$dir/raw_cm";
 port_path="$dir/port";
 diffmerge="/Applications/DiffMerge.app/Contents/MacOS/DiffMerge";
 SIGN_TARGET_FILES_APKS="$dir/../tools/releasetools/sign_target_files_apks";
-APKCERTS="$dir/../tools/apkcerts.txt";
+APKCERTS="$dir/$phone/apkcerts.txt";
 
 #cleanup
 if [ -d $dir/wip ]; then
