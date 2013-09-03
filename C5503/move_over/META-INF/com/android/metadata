@@ -1,3 +1,3 @@
-post-build=samsung/m0xx/m0:4.1.1/JRO03C/I9300XXDLIB:user/release-keys
-post-timestamp=1370104169
-pre-device=m0
+post-build=Sony/C5503_1270-6697/C5503:4.2.2/10.3.A.0.423/WP5_rg:user/release-keys
+post-timestamp=1377963995
+pre-device=dogo

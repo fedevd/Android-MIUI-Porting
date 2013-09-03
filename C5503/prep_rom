@@ -10,7 +10,7 @@ echo "***************************************";
 
 #setup vars
 dir=$PWD;
-phone="i9300";
+phone="C5503";
 version="3.8.29";
 
 #helper vars
