@@ -107,7 +107,7 @@ net.bt.name=Android
 dalvik.vm.stack-trace-file=/data/anr/traces.txt
 # CUSTOM
 persist.service.adb.enable=1
-persist.sys.usb.config=mass_storage,adb
+persist.sys.usb.config=mtp,adb
 
 ro.modversion=datagutt_MIUI-3.9.6-dogo
 ro.product.mod_device=dat_dogo
