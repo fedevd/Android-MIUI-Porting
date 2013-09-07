@@ -280,6 +280,11 @@ echo "Patch FileUtils"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
 
+echo "LTE"
+sleep 4;
+$diffmerge $wip_cm/framework.jar.out/smali/android/telephony/TelephonyManager.smali $wip_miui/framework.jar.out/smali/android/telephony/TelephonyManager.smali;
+$diffmerge $wip_cm/framework.jar.out/smali/com/android/internal/telephony/TelephonyProperties.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/TelephonyProperties.smali;
+
 #mod some apks
 echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>';
 sleep 5;
