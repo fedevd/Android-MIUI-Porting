@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="C5503";
-version="3.9.6";
+version="3.9.13";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -85,6 +85,7 @@ cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher
 cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
 cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libMiuiGalleryJNI.so $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/libkeygen_jni.so $port_path/system/lib/;
 # Grab MIUI NFC stuff
 cp -aRf $miui_path/system/lib/libnfc.so $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libnfc_jni.so $port_path/system/lib/;
