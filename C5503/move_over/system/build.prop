@@ -89,7 +89,6 @@ ro.hwui.text_small_cache_width=1024
 ro.hwui.text_small_cache_height=512
 ro.hwui.text_large_cache_width=2048
 ro.hwui.text_large_cache_height=1024
-ro.rommanager.developerid=cyanogenmod
 ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html
 ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html
 ro.com.google.clientidbase=android-google
@@ -108,3 +107,4 @@ dalvik.vm.stack-trace-file=/data/anr/traces.txt
 # CUSTOM
 persist.service.adb.enable=1
 persist.sys.usb.config=mtp,adb
+ro.product.mod_device=C5503_mam

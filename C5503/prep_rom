@@ -247,8 +247,8 @@ sed -i '' '/.method static synthetic access\$100(Lcom\/android\/internal\/policy
 ' $wip_miui/android.policy.jar.out/smali/com/android/internal/policy/impl/MiuiGlobalActions.smali;
 
 #remove 'system update bottom bar' from about the phone
-sed -i '' 's/MenuInflater;)V/MenuInflater;)V \
-    return-void/' $dir/wip/apks/Settings.apk/smali/com/android/settings/MiuiDeviceInfoSettings.smali;
+#sed -i '' 's/MenuInflater;)V/MenuInflater;)V \
+#    return-void/' $dir/wip/apks/Settings.apk/smali/com/android/settings/#MiuiDeviceInfoSettings.smali;
 
 #remove double autostart and permissions manager from the desktop
 cp $dir/wip/apks/LBESEC_MIUI.apk/AndroidManifest.xml $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml
