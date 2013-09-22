@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="i9300";
-version="3.9.13";
+version="3.9.20";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -283,7 +283,7 @@ sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
 
 #mod some apks
-echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>, and disable showNavigationBar';
+echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>, enable config_wifi_p2p_support and disable showNavigationBar';
 sleep 5;
 nano $dir/wip/apks/framework-res.apk/res/values/bools.xml
 

@@ -32,7 +32,7 @@
     <header android:icon="@drawable/ic_location_settings" android:id="@id/location_settings" android:title="@string/location_settings_title">
         <intent android:action="android.settings.LOCATION_SOURCE_SETTINGS" />
     </header>
-    <header android:icon="@drawable/ic_quiet_mode_settings" android:id="@id/antispam_quiet_mode" android:title="@string/antispam_quiet_mode_title">
+    <header android:icon="@drawable/ic_do_not_disturb_mode_settings" android:id="@id/do_not_disturb_mode" android:title="@string/do_not_disturb_mode">
         <intent android:action="android.intent.action.QUIET_MODE" />
     </header>
     <header android:id="@id/account_settings" android:title="@string/header_category_accounts" />
@@ -55,9 +55,6 @@
         <intent android:action="com.android.settings.CARRIER" />
     </header>
     <header android:id="@id/system_section" android:title="@string/header_category_system" />
-    <header android:icon="@drawable/ic_oldman_mode_settings" android:id="@id/oldman_mode_settings" android:title="@string/oldman_mode_entry_name">
-        <intent android:targetPackage="com.android.settings" android:action="android.intent.action.MAIN" android:targetClass="com.android.settings.OldmanModeSettings" />
-    </header>
     <header android:icon="@drawable/ic_date_time_settings" android:id="@id/date_time_settings" android:title="@string/date_and_time_settings_title" android:fragment="com.android.settings.DateTimeSettings" />
     <header android:icon="@drawable/ic_language_settings" android:id="@id/language_settings" android:title="@string/language_settings" android:fragment="com.android.settings.inputmethod.InputMethodAndLanguageSettings" />
     <header android:icon="@drawable/ic_application_settings" android:id="@id/application_settings" android:title="@string/applications_settings">
