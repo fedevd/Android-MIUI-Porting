@@ -188,6 +188,7 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/view/inputmethod/InputMethodInfo
 cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miui/framework.jar.out/smali/android/media/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.out/smali/android/nfc/;
 cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
+cp -aRf $wip_cm/framework.jar.out/smali/com/android/server/WiredAccessoryManager*.smali $wip_miui/framework.jar.out/smali/com/android/server/;
 
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali $wip_miui/services.jar.out/smali/com/android/server/location/
