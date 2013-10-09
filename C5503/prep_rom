@@ -140,10 +140,12 @@ $dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/framework.jar -o $dir/wip/jars/miui/framework.jar.out
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar  -o $dir/wip/jars/miui/android.policy.jar.out
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/telephony-common.jar -o $dir/wip/jars/miui/telephony-common.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/core.jar -o $dir/wip/jars/miui/core.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/services.jar -o $dir/wip/jars/cm/services.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/framework.jar -o $dir/wip/jars/cm/framework.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar -o  $dir/wip/jars/cm/android.policy.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar   -o $dir/wip/jars/cm/telephony-common.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/core.jar   -o $dir/wip/jars/cm/core.jar.out
 
 #decompile APKs that need editing.
 $dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk -o $dir/wip/apks/framework-res.apk
@@ -283,6 +285,11 @@ echo "Patch FileUtils"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
 
+# Too much to patch
+#echo "Patch master key bug by replacing readCentralDir() and getInputStream()"
+#sleep 4;
+#$diffmerge $wip_cm/core.jar.out/smali/java/util/zip/ZipFile.smali $wip_miui/core.jar.out/smali/java/util/zip/ZipFile.smali 
+
 echo "LTE"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/telephony/TelephonyManager.smali $wip_miui/framework.jar.out/smali/android/telephony/TelephonyManager.smali;
@@ -304,12 +311,14 @@ $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/framework.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/android.policy.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
+$dir/../tools/apktool b $dir/wip/jars/miui/core.jar.out
 
 #lets merge this back into the main APKs / JARs
 7za u -mx0 -tzip $dir/port/system/framework/android.policy.jar $dir/wip/jars/miui/android.policy.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/telephony-common.jar $dir/wip/jars/miui/telephony-common.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/services.jar $dir/wip/jars/miui/services.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework.jar $dir/wip/jars/miui/framework.jar.out/build/apk/classes.dex > /dev/null;
+7za u -mx0 -tzip $dir/port/system/framework/core.jar $dir/wip/jars/miui/core.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
