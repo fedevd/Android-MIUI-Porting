@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="C5503";
-version="3.10.11";
+version="3.10.25";
 
 #helper vars
 miui_path="$dir/raw_miui";
