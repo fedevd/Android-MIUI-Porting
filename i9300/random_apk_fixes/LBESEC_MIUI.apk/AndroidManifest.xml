@@ -36,7 +36,7 @@
                 <data android:scheme="package"/>
             </intent-filter>
         </activity>
-        <activity android:enabled="true" android:exported="true" android:name="com.lbe.security.ui.su.SuEnableDialog" android:theme="@android:style/Theme.Holo.Light.Panel"/>
+        <activity android:exported="true" android:name="com.lbe.security.ui.su.SuEnableDialog" android:theme="@android:style/Theme.Holo.Light.Panel"/>
         <receiver android:enabled="true" android:name="com.lbe.security.service.optimizer.BootReceiver" android:process=":service">
             <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
