@@ -97,3 +97,5 @@ name="DeviceSettings.apk" certificate="../tools/security/platform.x509.pem" priv
 name="SamsungServiceMode.apk" certificate="../tools/security/platform.x509.pem" private_key="../tools/security/platform.pk8"
 name="Spn.apk" certificate="PRESIGNED" private_key=""
 name="Weather.apk" certificate="../tools/security/platform.x509.pem" private_key="../tools/security/platform.pk8"
+name="AMAPNetworkLocation.apk" certificate="PRESIGNED" private_key=""
+name="KingSoftCleaner.apk" certificate="PRESIGNED" private_key=""
