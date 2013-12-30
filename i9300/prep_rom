@@ -283,6 +283,10 @@ echo "Patch WebSettingsClassic"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali $wip_miui/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali;
 
+echo "Patch WebViewCore"
+sleep 4;
+nano $wip_miui/framework.jar.out/smali/android/webkit/WebViewCore.smali;
+
 echo "Patch FileUtils"
 sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
