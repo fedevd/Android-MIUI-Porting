@@ -1,0 +1,3 @@
+post-build=google/omni_hammerhead/hammerhead:4.4.2/KOT49H/101:userdebug/test-keys
+post-timestamp=1388763366
+pre-device=hammerhead
