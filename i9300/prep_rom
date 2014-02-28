@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="i9300";
-version="3.12.27";
+version="4.1.24";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -91,6 +91,7 @@ cp -aRf $miui_path/system/lib/libkeygen_jni.so $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libffmpeg_armv7_neon.so $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libPlayer_jni_armv7_neon.so $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libfile_scanner.so $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/libxl_common.so $port_path/system/lib/;
 # Grab MIUI NFC stuff
 cp -aRf $miui_path/system/lib/libnfc.so $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libnfc_jni.so $port_path/system/lib/;
