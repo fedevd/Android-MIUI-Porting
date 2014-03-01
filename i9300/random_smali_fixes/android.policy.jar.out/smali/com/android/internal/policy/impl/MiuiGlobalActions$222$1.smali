@@ -24,7 +24,7 @@
 # direct methods
 .method constructor <init>(Lcom/android/internal/policy/impl/MiuiGlobalActions$222;)V
     .registers 2
-    .parameter
+    .param p1
 
     .prologue
     .line 281
@@ -39,8 +39,8 @@
 # virtual methods
 .method public onClick(Landroid/content/DialogInterface;I)V
     .registers 7
-    .parameter "dialog"
-    .parameter "whichButton"
+    .param p1    # Landroid/content/DialogInterface;
+    .param p2    # Landroid/content/DialogInterface;
 
     .prologue
     const/4 v2, 0x0
