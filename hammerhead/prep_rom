@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="hammerhead";
-version="4.1.3";
+version="4.2.28";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -61,69 +61,51 @@ cp -aRf * ../port;
 
 #delete CM specific stuff
 rm -rf $dir/port/system/framework/*;
+rm -rf $dir/port/system/priv-app/*;
 rm -rf $dir/port/system/app/*;
 rm -rf $dir/port/system/font/*;
 rm -rf $dir/port/system/media/*;
-rm -rf $dir/port/system/xbin/su;
 
 ## BEGIN COPY OF MIUI FILES
 
 #libs
-cp -aRf $miui_path/system/lib/content-types.properties $port_path/system/lib/content-types.properties;
-cp -aRf $miui_path/system/lib/libFreqFilter.so $port_path/system/lib/libFreqFilter.so;
-cp -aRf $miui_path/system/lib/libaudiofp.so $port_path/system/lib/libaudiofp.so;
 cp -aRf $miui_path/system/lib/libffmpeg_xm.so $port_path/system/lib/libffmpeg_xm.so;
 cp -aRf $miui_path/system/lib/libffplayer_jni.so $port_path/system/lib/libffplayer_jni.so;
 cp -aRf $miui_path/system/lib/libimageprocessor_jni.so $port_path/system/lib/libimageprocessor_jni.so;
-cp -aRf $miui_path/system/lib/libimageutilities_jni.so $port_path/system/lib/libimageutilities_jni.so;
-cp -aRf $miui_path/system/lib/liblbesec.so $port_path/system/lib/liblbesec.so;
-cp -aRf $miui_path/system/lib/liblocSDK_2_5OEM.so $port_path/system/lib/liblocSDK_2_5OEM.so;
 cp -aRf $miui_path/system/lib/libjni_resource_drm.so $port_path/system/lib/libjni_resource_drm.so;
-cp -aRf $miui_path/system/lib/libmp3lame.so $port_path/system/lib/libmp3lame.so;
-cp -aRf $miui_path/system/lib/libjni_resource_patcher.so $port_path/system/lib/libjni_resource_patcher.so;
 cp -aRf $miui_path/system/lib/libpatcher_jni.so $port_path/system/lib/libpatcher_jni.so;
-cp -aRf $miui_path/system/lib/libphotocli.so $port_path/system/lib/libphotocli.so;
-cp -aRf $miui_path/system/lib/libshell* $port_path/system/lib/;
 cp -aRf $miui_path/system/lib/libMiuiGalleryJNI.so $port_path/system/lib/;
-cp -aRf $miui_path/system/lib/libkeygen_jni.so $port_path/system/lib/;
 #cp -aRf $miui_path/system/lib/libNativeApi.so $port_path/system/lib/;
 #cp -aRf $miui_path/system/lib/libDmplayer.so $port_path/system/lib/;
-cp -aRf $miui_path/system/lib/libffmpeg_armv7_neon.so $port_path/system/lib/;
-cp -aRf $miui_path/system/lib/libPlayer_jni_armv7_neon.so $port_path/system/lib/;
-cp -aRf $miui_path/system/lib/libfile_scanner.so $port_path/system/lib/;
-# Grab MIUI NFC stuff
-cp -aRf $miui_path/system/lib/libnfc.so $port_path/system/lib/;
-cp -aRf $miui_path/system/lib/libnfc_jni.so $port_path/system/lib/;
-cp -aRf $miui_path/system/lib/libnfc_ndef.so $port_path/system/lib/;
+cp -aRf $miui_path/system/lib/libjni_googlepinyinime_latinime_5.so $port_path/system/lib/;
 # Fix external sdcard support
 cp -aRf $miui_path/system/lib/libdrmframework_jni.so $port_path/system/lib/libdrmframework_jni.so;
 cp -aRf $miui_path/system/lib/libmedia_jni.so $port_path/system/lib/libmedia_jni.so;
 cp -aRf $miui_path/system/lib/libmtp.so $port_path/system/lib/libmtp.so;
-
-#etc
-cp -aRf $miui_path/system/etc/yellowpage.db $port_path/system/etc/yellowpage.db;
-cp -aRf $miui_path/system/etc/telocation.idf $port_path/system/etc/telocation.idf;
-cp -aRf $miui_path/system/etc/pinyinindex.idf $port_path/system/etc/pinyinindex.idf;
-cp -aRf $miui_path/system/etc/permission_config.json $port_path/system/etc/permission_config.json;
-cp -aRf $miui_path/system/etc/spn-conf.xml $port_path/system/etc/spn-conf.xml;
+# MIUI V6
+cp -aRf $miui_path/system/lib/libmiui_chromium.so $port_path/system/lib/libmiui_chromium.so;
+cp -aRf $miui_path/system/lib/libmiuiloader.so $port_path/system/lib/libmiuiloader.so;
+cp -aRf $miui_path/system/lib/libmiuiimageutilities.so $port_path/system/lib/libmiuiimageutilities.so;
+cp -aRf $miui_path/system/lib/libmiuinative.so $port_path/system/lib/libmiuinative.so;
+cp -aRf $miui_path/system/lib/libmiuiclassproxy.so $port_path/system/lib/libmiuiclassproxy.so;
 
 #etc - permissions
-cp -aRf $miui_path/system/etc/permissions/com.nxp.mifare.xml $port_path/system/etc/permissions/com.nxp.mifare.xml;
 cp -aRf $miui_path/system/etc/permissions/com.google.android.maps.xml $port_path/system/etc/permissions/com.google.android.maps.xml;
 
 #bin
 cp -aRf $miui_path/system/bin/iptables $port_path/system/bin/iptables;
-#xbin
-cp -aRf $miui_path/system/xbin/su $port_path/system/xbin/su;
-cp -aRf $miui_path/system/xbin/shelld $port_path/system/xbin/shelld;
 # the rest of MIUI
 cp -aRf $miui_path/system/app/* $port_path/system/app/;
+cp -aRf $miui_path/system/priv-app/* $port_path/system/priv-app/;
 cp -aRf $miui_path/system/framework/* $port_path/system/framework/;
 cp -aRf $miui_path/system/fonts/* $port_path/system/fonts/;
 cp -aRf $miui_path/system/media/* $port_path/system/media/;
 # Replace LatinIME, because it will fc with the MIUI one
+rm $port_path/system/app/GooglePinyinIME.apk;
 rm $port_path/system/app/LatinIme*.apk;
 cp $cm_path/system/app/LatinIME.apk $port_path/system/app/;
+# Replace NFC
+cp $cm_path/system/app/NfcNci.apk $port_path/system/app/NfcNci.apk;
 
 ## Use prebuilt updater.script & build.prop
 ## Saves about 200 lines of bash. (Those reserved for MIUI Build Scripts)
@@ -139,21 +121,24 @@ mkdir -p $dir/wip/apks;
 for file in $port_path/system/framework/*.apk; do
   $dir/../tools/apktool if $file;
 done
+$dir/../tools/apktool if $port_path/system/app/miui.apk;
+$dir/../tools/apktool if $port_path/system/priv-app/MiuiSystemUI.apk;
+$dir/../tools/apktool if $port_path/system/priv-app/MiuiKeyGuard.apk;
 
 # decompile jars that need smali editing
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar -o $dir/wip/jars/miui/services.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar   -o $dir/wip/jars/miui/services.jar.out
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/framework.jar -o $dir/wip/jars/miui/framework.jar.out
-$dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar  -o $dir/wip/jars/miui/android.policy.jar.out
+$dir/../tools/apktool d --no-debug-info $port_path/system/framework/android.policy.jar -o $dir/wip/jars/miui/android.policy.jar.out
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/telephony-common.jar -o $dir/wip/jars/miui/telephony-common.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/services.jar -o $dir/wip/jars/cm/services.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/services.jar  -o $dir/wip/jars/cm/services.jar.out
 $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/framework.jar -o $dir/wip/jars/cm/framework.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar -o  $dir/wip/jars/cm/android.policy.jar.out
-$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar   -o $dir/wip/jars/cm/telephony-common.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/android.policy.jar -o $dir/wip/jars/cm/android.policy.jar.out
+$dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-common.jar -o $dir/wip/jars/cm/telephony-common.jar.out
 
 #decompile APKs that need editing.
 $dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk -o $dir/wip/apks/framework-res.apk
-$dir/../tools/apktool d --no-src $port_path/system/app/LBESEC_MIUI.apk -o $dir/wip/apks/LBESEC_MIUI.apk
-$dir/../tools/apktool d $port_path/system/app/Settings.apk -o $dir/wip/apks/Settings.apk
+#$dir/../tools/apktool d --no-src $port_path/system/app/LBESEC_MIUI.apk -o $dir/wip/apks/LBESEC_MIUI.apk
+$dir/../tools/apktool d $port_path/system/priv-app/Settings.apk -o $dir/wip/apks/Settings.apk
 $dir/../tools/apktool d $port_path/system/app/DownloadProviderUi.apk -o $dir/wip/apks/DownloadProviderUi.apk
 
 #lets merge smali that is just direct merge
@@ -167,20 +152,12 @@ wip_miui=$dir/wip/jars/miui;
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/PowerManager*.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/hardware/Camera*.smali $wip_miui/framework.jar.out/smali/android/hardware/;
 
-echo "Manually fixing webkit";
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebViewCore*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic\$*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/HTML5*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/webkit/SelectActionModeCallback*.smali $wip_miui/framework.jar.out/smali/android/webkit/;
-
-cp -aRf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMap*.smali $wip_miui/framework.jar.out/smali/android/content/res/
+#cp -aRf $wip_cm/framework.jar.out/smali/android/content/res/PackageRedirectionMap*.smali $wip_miui/framework.jar.out/smali/android/content/res/
 
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/BaseCommands.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/PhoneFactory.smali
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/;
 cp -aRf $wip_cm/telephony-common.jar.out/smali/com/android/internal/telephony/Samsung*.smali $wip_miui/telephony-common.jar.out/smali/com/android/internal/telephony/;
-
-cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/telephony/RIL*.smali $wip_miui/framework.jar.out/smali/com/android/internal/telephony/;
 
 cp -aRf $wip_cm/framework.jar.out/smali/android/telephony/CellSignalStrength*.smali $wip_miui/framework.jar.out/smali/android/telephony/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/telephony/SignalStrength*.smali $wip_miui/framework.jar.out/smali/android/telephony/;
@@ -192,24 +169,13 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/os/SystemProperties.smali $wip_m
 cp -aRf $wip_cm/framework.jar.out/smali/android/view/inputmethod/InputMethodInfo*.smali $wip_miui/framework.jar.out/smali/android/view/inputmethod/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miui/framework.jar.out/smali/android/media/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.out/smali/android/nfc/;
-cp -aRf $wip_cm/framework.jar.out/smali/com/android/internal/app/ActivityTrigger.smali $wip_miui/framework.jar.out/smali/com/android/internal/app/;
 
-cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
+#cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali $wip_miui/services.jar.out/smali/com/android/server/location/
-
-# 3-way reboot, thanks to iBotPeaches for the basics, but i had to modify it
-
-#remove 'system update bottom bar' from about the phone
-sed -i '' 's/MenuInflater;)V/MenuInflater;)V \
-    return-void/' $dir/wip/apks/Settings.apk/smali/com/android/settings/MiuiDeviceInfoSettings.smali;
-
-#remove double autostart and permissions manager from the desktop
-cp $dir/wip/apks/LBESEC_MIUI.apk/AndroidManifest.xml $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml
-sed -i '' 's/<category android:name=\"android.intent.category.LAUNCHER\" \/>/<!--category android:name=\"android.intent.category.LAUNCHER\" \/-->/' $dir/random_apk_fixes/LBESEC_MIUI.apk/AndroidManifest.xml;
 
 #move over merges for apk and smali
 cp -aRf $dir/random_apk_fixes/* $dir/wip/apks/;
-#cp -aRf $dir/random_smali_fixes/android.policy.jar.out/* $wip_miui/android.policy.jar.out/;
+cp -aRf $dir/random_smali_fixes/android.policy.jar.out/* $wip_miui/android.policy.jar.out/;
 
 echo "Auto merge complete. Time for manual merges :/";
 
@@ -222,30 +188,25 @@ echo "Merge nativeCpuBoost"
 sleep 4;
 $diffmerge $wip_cm/services.jar.out/smali/com/android/server/power/PowerManagerService.smali $wip_miui/services.jar.out/smali/com/android/server/power/PowerManagerService.smali;
 
-echo "Patch AssetManager"
-sleep 4;
-$diffmerge $wip_cm/framework.jar.out/smali/android/content/res/AssetManager.smali $wip_miui/framework.jar.out/smali/android/content/res/AssetManager.smali;
+#echo "Patch FileUtils"
+#sleep 4;
+#$diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali #$wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
 
-
-echo "Patch WebSettingsClassic"
+echo "Merge getLte* and toggleMobileNetwork"
 sleep 4;
-$diffmerge $wip_cm/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali $wip_miui/framework.jar.out/smali/android/webkit/WebSettingsClassic.smali;
-
-echo "Patch FileUtils"
-sleep 4;
-$diffmerge $wip_cm/framework.jar.out/smali/android/os/FileUtils.smali $wip_miui/framework.jar.out/smali/android/os/FileUtils.smali;
+$diffmerge $wip_cm/framework.jar.out/smali/android/telephony/TelephonyManager.smali $wip_miui/framework.jar.out/smali/android/telephony/TelephonyManager.smali;
 
 #mod some apks
-echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool>, enable config_wifi_p2p_support and disable showNavigationBar';
-sleep 5;
-nano $dir/wip/apks/framework-res.apk/res/values/bools.xml
+echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool> and disable showNavigationBar';
+#sleep 5;
+#nano $dir/wip/apks/framework-res.apk/res/values/bools.xml
 
 echo "Everything is done :) Rebuilding now....";
 
 ##START THE REBUILD - apks
 $dir/../tools/apktool b $dir/wip/apks/Settings.apk
 $dir/../tools/apktool b $dir/wip/apks/DownloadProviderUi.apk
-$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
+#$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool b $dir/wip/apks/framework-res.apk
 $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
 $dir/../tools/apktool b $dir/wip/jars/miui/framework.jar.out
@@ -257,15 +218,16 @@ $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
 7za u -mx0 -tzip $dir/port/system/framework/telephony-common.jar $dir/wip/jars/miui/telephony-common.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/services.jar $dir/wip/jars/miui/services.jar.out/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework.jar $dir/wip/jars/miui/framework.jar.out/build/apk/classes.dex > /dev/null;
-7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/classes.dex > /dev/null;
-7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
-7za u -mx0 -tzip $dir/port/system/app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
+7za u -mx0 -tzip $dir/port/system/priv-app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/classes.dex > /dev/null;
+7za u -mx0 -tzip $dir/port/system/priv-app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
+7za u -mx0 -tzip $dir/port/system/priv-app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/app/DownloadProviderUi.apk $dir/wip/apks/DownloadProviderUi.apk/build/apk/resources.arsc > /dev/null;
-7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
+#7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/#LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/resources.arsc > /dev/null;
 
 #Lets zipalign these bastards.
+
 for file in $dir/port/system/app/*.apk; do
   $dir/../tools/zipalign 4 $file $file.zipalligned;
   echo "Zipaligned $(basename $file);";
@@ -276,58 +238,20 @@ for file in $dir/port/system/app/*.apk; do
    mv $file.zipalligned $file;
 done;
 
+for file in $dir/port/system/priv-app/*.apk; do
+  $dir/../tools/zipalign 4 $file $file.zipalligned;
+  echo "Zipaligned $(basename $file);";
+done;
+
+for file in $dir/port/system/priv-app/*.apk; do
+   rm -rf $file;
+   mv $file.zipalligned $file;
+done;
+
 echo "Signing with correct keys";
 
 # If you run this, you must add DeviceSettings cert into the flie afterwards
 #dir=$dir $dir/../tools/build_apkcerts.sh
-
-# I am not proud of this hack
-for file in $dir/port/system/app/*.apk; do
-	file2=`basename $file`;
-	APKINFO=`grep "name=\"$file2\"" $APKCERTS`;
-	if [ "$APKINFO" = "" ];
-		then
-		    echo "No apk info for $file";
-		fi
-	CERT=`echo $APKINFO | awk {'print $2'} | cut -f 2 -d "=" | tr -d "\""`;
-	KEY=`echo $APKINFO | awk {'print $3'} | cut -f 2 -d "=" | tr -d "\""`;
-	if [ "$CERT" = "" ];
-	then
-	    echo "Unable to find certificate for $file"
-	else
-		if [ "$CERT" != "PRESIGNED" ];
-		then
-			if [ -f "$file" ];
-			then
-				java -jar $dir/../tools/signapk.jar $dir/$CERT $dir/$KEY $file $file.signed;
-				mv $file.signed $file;
-			fi
-		fi
-	fi
-done;
-for file in $dir/port/system/framework/*.apk; do
-	file2=`basename $file`;
-	APKINFO=`grep "name=\"$file2\"" $APKCERTS`;
-	if [ "$APKINFO" = "" ];
-		then
-		    echo "No apk info for $file";
-		fi
-	CERT=`echo $APKINFO | awk {'print $2'} | cut -f 2 -d "=" | tr -d "\""`;
-	KEY=`echo $APKINFO | awk {'print $3'} | cut -f 2 -d "=" | tr -d "\""`;
-	if [ "$CERT" = "" ];
-	then
-	    echo "Unable to find certificate for $file"
-	else
-		if [ "$CERT" != "PRESIGNED" ];
-		then
-			if [ -f "$file" ];
-			then
-				java -jar $dir/../tools/signapk.jar $dir/$CERT $dir/$KEY $file $file.signed;
-				mv $file.signed $file;
-			fi
-		fi
-	fi
-done;
 
 # Zip this guy
 cd $dir/port/;
