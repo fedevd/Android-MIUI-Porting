@@ -122,8 +122,6 @@ for file in $port_path/system/framework/*.apk; do
   $dir/../tools/apktool if $file;
 done
 $dir/../tools/apktool if $port_path/system/app/miui.apk;
-$dir/../tools/apktool if $port_path/system/priv-app/MiuiSystemUI.apk;
-$dir/../tools/apktool if $port_path/system/priv-app/MiuiKeyGuard.apk;
 
 # decompile jars that need smali editing
 $dir/../tools/apktool d --no-debug-info $port_path/system/framework/services.jar   -o $dir/wip/jars/miui/services.jar.out
@@ -139,6 +137,7 @@ $dir/../tools/apktool d --no-debug-info $cm_path/system/framework/telephony-comm
 $dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk -o $dir/wip/apks/framework-res.apk
 #$dir/../tools/apktool d --no-src $port_path/system/app/LBESEC_MIUI.apk -o $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool d $port_path/system/priv-app/Settings.apk -o $dir/wip/apks/Settings.apk
+$dir/../tools/apktool d $port_path/system/priv-app/MiuiSystemUI.apk -o $dir/wip/apks/MiuiSystemUI.apk
 $dir/../tools/apktool d $port_path/system/app/DownloadProviderUi.apk -o $dir/wip/apks/DownloadProviderUi.apk
 
 #lets merge smali that is just direct merge
@@ -168,7 +167,7 @@ cp -aRf $wip_cm/framework.jar.out/smali/android/os/IPowerManager*.smali $wip_miu
 cp -aRf $wip_cm/framework.jar.out/smali/android/os/SystemProperties.smali $wip_miui/framework.jar.out/smali/android/os/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/view/inputmethod/InputMethodInfo*.smali $wip_miui/framework.jar.out/smali/android/view/inputmethod/;
 cp -aRf $wip_cm/framework.jar.out/smali/android/media/AudioFormat.smali $wip_miui/framework.jar.out/smali/android/media/;
-cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.out/smali/android/nfc/;
+#cp -aRf $wip_cm/framework.jar.out/smali/android/nfc/* $wip_miui/framework.jar.out/smali/android/nfc/;
 
 #cp -aRf $wip_cm/services.jar.out/smali/com/android/server/input/InputManagerService$\ChainedInputFilterHost.smali $wip_miui/services.jar.out/smali/com/android/server/input/;
 cp -aRf $wip_cm/services.jar.out/smali/com/android/server/location/GpsLocationProvider.smali $wip_miui/services.jar.out/smali/com/android/server/location/
@@ -197,15 +196,16 @@ sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/telephony/TelephonyManager.smali $wip_miui/framework.jar.out/smali/android/telephony/TelephonyManager.smali;
 
 #mod some apks
-echo 'Add this line at end: <bool name="config_forceDisableHardwareKeyboard">true</bool> and disable showNavigationBar';
-#sleep 5;
-#nano $dir/wip/apks/framework-res.apk/res/values/bools.xml
+echo 'Mod MiuiSystemUI to fix crash.';
+open $dir/wip/apks/MiuiSystemUI.apk/res
+read -p "Press enter when finished"
 
 echo "Everything is done :) Rebuilding now....";
 
 ##START THE REBUILD - apks
 $dir/../tools/apktool b $dir/wip/apks/Settings.apk
 $dir/../tools/apktool b $dir/wip/apks/DownloadProviderUi.apk
+#$dir/../tools/apktool b $dir/wip/apks/MiuiSystemUI.apk
 #$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool b $dir/wip/apks/framework-res.apk
 $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
