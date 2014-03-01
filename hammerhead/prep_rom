@@ -105,7 +105,7 @@ rm $port_path/system/app/GooglePinyinIME.apk;
 rm $port_path/system/app/LatinIme*.apk;
 cp $cm_path/system/app/LatinIME.apk $port_path/system/app/;
 # Replace NFC
-cp $cm_path/system/app/NfcNci.apk $port_path/system/app/NfcNci.apk;
+#cp $cm_path/system/app/NfcNci.apk $port_path/system/app/NfcNci.apk;
 
 ## Use prebuilt updater.script & build.prop
 ## Saves about 200 lines of bash. (Those reserved for MIUI Build Scripts)
