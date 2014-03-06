@@ -75,9 +75,7 @@
     <dimen name="expanded_status_bar_content_margin_top">0.0dip</dimen>
     <dimen name="expanded_status_bar_content_margin_bottom">0.0dip</dimen>
     <dimen name="seekbar_height">18.0dip</dimen>
-    <!-- START MOD -->
-    <dimen name="notification_panel_content_margin_top">65.0dip</dimen>
-    <dimen name="notification_panel_clear_margin_top">35.0dip</dimen>
-    <dimen name="notification_panel_clear_margin_bottom">41.0dip</dimen>
-    <!-- END MOD -->
+    <dimen name="notification_panel_content_margin_top">167.0dip</dimen>
+    <dimen name="notification_panel_clear_margin_top">201.0dip</dimen>
+    <dimen name="notification_panel_clear_margin_bottom">61.0dip</dimen>
 </resources>

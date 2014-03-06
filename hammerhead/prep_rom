@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="hammerhead";
-version="4.2.28";
+version="4.3.4";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -138,6 +138,7 @@ $dir/../tools/apktool d --no-src $port_path/system/framework/framework-res.apk -
 #$dir/../tools/apktool d --no-src $port_path/system/app/LBESEC_MIUI.apk -o $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool d $port_path/system/priv-app/Settings.apk -o $dir/wip/apks/Settings.apk
 $dir/../tools/apktool d $port_path/system/priv-app/MiuiSystemUI.apk -o $dir/wip/apks/MiuiSystemUI.apk
+$dir/../tools/apktool d $port_path/system/app/MiuiHome.apk -o $dir/wip/apks/MiuiHome.apk
 $dir/../tools/apktool d $port_path/system/app/DownloadProviderUi.apk -o $dir/wip/apks/DownloadProviderUi.apk
 
 #lets merge smali that is just direct merge
@@ -196,16 +197,39 @@ sleep 4;
 $diffmerge $wip_cm/framework.jar.out/smali/android/telephony/TelephonyManager.smali $wip_miui/framework.jar.out/smali/android/telephony/TelephonyManager.smali;
 
 #mod some apks
-echo 'Mod MiuiSystemUI to fix crash.';
-open $dir/wip/apks/MiuiSystemUI.apk/res
-read -p "Press enter when finished"
+echo "Doing haxxx"
+sleep 4;
+mod='<dimen name="notification_panel_content_margin_top">65.0dip<\/dimen>
+    <dimen name="notification_panel_clear_margin_top">35.0dip<\/dimen>
+    <dimen name="notification_panel_clear_margin_bottom">41.0dip<\/dimen>';
+sed -i '' 's/package="miui"/ \
+package="com.android.systemui"/' $dir/wip/apks/MiuiSystemUI.apk/AndroidManifest.xml;
+sed -i '' 's/package="miui"/ \
+package="com.miui.home"/' $dir/wip/apks/MiuiHome.apk/AndroidManifest.xml;
+
+echo "OK, lets do framework-res"
+echo "First, set voice_capable and sms_capable to true"
+sleep 4;
+nano $dir/wip/apks/framework-res.apk/res/values/bools.xml;
+echo "Then add this to networkAttributes:
+<item>mobile,0,0,0,-1,true</item>
+<item>mobile_mms,2,0,2,60000,true</item>
+<item>mobile_supl,3,0,2,60000,true</item>
+<item>mobile_dun,4,0,3,60000,true</item>
+<item>mobile_hipri,5,0,3,60000,true</item>
+<item>mobile_bluetooth,7,7,1,-1,true</item>
+"
+sleep 4;
+nano $dir/wip/apks/framework-res.apk/res/values/arrays.xml;
+echo "Finished with framework-res"
 
 echo "Everything is done :) Rebuilding now....";
 
 ##START THE REBUILD - apks
 $dir/../tools/apktool b $dir/wip/apks/Settings.apk
 $dir/../tools/apktool b $dir/wip/apks/DownloadProviderUi.apk
-#$dir/../tools/apktool b $dir/wip/apks/MiuiSystemUI.apk
+$dir/../tools/apktool b $dir/wip/apks/MiuiSystemUI.apk
+$dir/../tools/apktool b $dir/wip/apks/MiuiHome.apk
 #$dir/../tools/apktool b $dir/wip/apks/LBESEC_MIUI.apk
 $dir/../tools/apktool b $dir/wip/apks/framework-res.apk
 $dir/../tools/apktool b $dir/wip/jars/miui/services.jar.out
@@ -221,6 +245,15 @@ $dir/../tools/apktool b $dir/wip/jars/miui/telephony-common.jar.out
 7za u -mx0 -tzip $dir/port/system/priv-app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/classes.dex > /dev/null;
 7za u -mx0 -tzip $dir/port/system/priv-app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/resources.arsc > /dev/null;
 7za u -mx0 -tzip $dir/port/system/priv-app/Settings.apk $dir/wip/apks/Settings.apk/build/apk/res > /dev/null;
+
+7za u -mx0 -tzip $dir/port/system/priv-app/MiuiSystemUI.apk $dir/wip/apks/MiuiSystemUI.apk/build/apk/classes.dex > /dev/null;
+7za u -mx0 -tzip $dir/port/system/priv-app/MiuiSystemUI.apk $dir/wip/apks/MiuiSystemUI.apk/build/apk/resources.arsc > /dev/null;
+7za u -mx0 -tzip $dir/port/system/priv-app/MiuiSystemUI.apk $dir/wip/apks/MiuiSystemUI.apk/build/apk/res > /dev/null;
+
+7za u -mx0 -tzip $dir/port/system/app/MiuiHome.apk $dir/wip/apks/MiuiHome.apk/build/apk/classes.dex > /dev/null;
+7za u -mx0 -tzip $dir/port/system/app/MiuiHome.apk $dir/wip/apks/MiuiHome.apk/build/apk/resources.arsc > /dev/null;
+7za u -mx0 -tzip $dir/port/system/app/MiuiHome.apk $dir/wip/apks/MiuiHome.apk/build/apk/res > /dev/null;
+
 7za u -mx0 -tzip $dir/port/system/app/DownloadProviderUi.apk $dir/wip/apks/DownloadProviderUi.apk/build/apk/resources.arsc > /dev/null;
 #7za u -mx0 -tzip $dir/port/system/app/LBESEC_MIUI.apk $dir/wip/apks/#LBESEC_MIUI.apk/build/apk/AndroidManifest.xml > /dev/null;
 7za u -mx0 -tzip $dir/port/system/framework/framework-res.apk $dir/wip/apks/framework-res.apk/build/apk/res > /dev/null;
