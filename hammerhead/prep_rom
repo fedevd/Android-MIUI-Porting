@@ -11,7 +11,7 @@ echo "***************************************";
 #setup vars
 dir=$PWD;
 phone="hammerhead";
-version="4.3.4";
+version="4.3.14";
 
 #helper vars
 miui_path="$dir/raw_miui";
@@ -88,6 +88,7 @@ cp -aRf $miui_path/system/lib/libmiuiloader.so $port_path/system/lib/libmiuiload
 cp -aRf $miui_path/system/lib/libmiuiimageutilities.so $port_path/system/lib/libmiuiimageutilities.so;
 cp -aRf $miui_path/system/lib/libmiuinative.so $port_path/system/lib/libmiuinative.so;
 cp -aRf $miui_path/system/lib/libmiuiclassproxy.so $port_path/system/lib/libmiuiclassproxy.so;
+cp -aRf $miui_path/system/lib/libFindRect.so $port_path/system/lib/libFindRect.so;
 
 #etc - permissions
 cp -aRf $miui_path/system/etc/permissions/com.google.android.maps.xml $port_path/system/etc/permissions/com.google.android.maps.xml;
