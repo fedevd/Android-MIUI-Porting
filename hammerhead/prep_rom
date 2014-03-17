@@ -200,9 +200,6 @@ $diffmerge $wip_cm/framework.jar.out/smali/android/telephony/TelephonyManager.sm
 #mod some apks
 echo "Doing haxxx"
 sleep 4;
-mod='<dimen name="notification_panel_content_margin_top">65.0dip<\/dimen>
-    <dimen name="notification_panel_clear_margin_top">35.0dip<\/dimen>
-    <dimen name="notification_panel_clear_margin_bottom">41.0dip<\/dimen>';
 sed -i '' 's/package="miui"/ \
 package="com.android.systemui"/' $dir/wip/apks/MiuiSystemUI.apk/AndroidManifest.xml;
 sed -i '' 's/package="miui"/ \
@@ -212,15 +209,25 @@ echo "OK, lets do framework-res"
 echo "First, set voice_capable and sms_capable to true"
 sleep 4;
 nano $dir/wip/apks/framework-res.apk/res/values/bools.xml;
-echo "Then add this to networkAttributes:
+echo "Then replace networkAttributes with:
+<item>wifi,1,1,1,-1,true</item>
 <item>mobile,0,0,0,-1,true</item>
 <item>mobile_mms,2,0,2,60000,true</item>
 <item>mobile_supl,3,0,2,60000,true</item>
-<item>mobile_dun,4,0,3,60000,true</item>
+<item>mobile_dun,4,0,2,60000,true</item>
 <item>mobile_hipri,5,0,3,60000,true</item>
-<item>mobile_bluetooth,7,7,1,-1,true</item>
+<item>mobile_fota,10,0,2,60000,true</item>
+<item>mobile_ims,11,0,2,60000,true</item>
+<item>mobile_cbs,12,0,2,60000,true</item>
+<item>mobile_ia,14,0,2,-1,true</item>
+<item>bluetooth,7,7,2,-1,true</item>
+
+Replace radioAttributes with:
+<item>1,1</item>
+<item>0,1</item>
+<item>7,1</item>
 "
-sleep 4;
+sleep 6;
 nano $dir/wip/apks/framework-res.apk/res/values/arrays.xml;
 echo "Finished with framework-res"
 
